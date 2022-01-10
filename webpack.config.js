@@ -1,11 +1,7 @@
 const path = require("path");
+const { merge } = require("webpack-merge");
 
-module.exports = {
-  entry: "./src/index.js",
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "public/assets"),
-  },
+const commonConfig = {
   module: {
     rules: [
       {
@@ -42,3 +38,26 @@ module.exports = {
     ],
   },
 };
+
+const productionConfig = {
+  mode: "production",
+};
+
+const developmentConfig = {
+  watch: true,
+  mode: "development",
+  devtool: "source-map",
+};
+
+const mainConfig = merge(commonConfig, {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "public/assets"),
+  },
+});
+
+module.exports = (env, argv) =>
+  argv.mode === "development"
+    ? merge(mainConfig, developmentConfig)
+    : merge(mainConfig, productionConfig);
