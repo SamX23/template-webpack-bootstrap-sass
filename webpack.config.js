@@ -54,6 +54,7 @@ const mainConfig = merge(commonConfig, {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public/assets"),
+    clean: true,
   },
 });
 
