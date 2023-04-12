@@ -44,7 +44,6 @@ const productionConfig = {
 };
 
 const developmentConfig = {
-  watch: true,
   mode: "development",
   devtool: "source-map",
 };
@@ -55,6 +54,13 @@ const mainConfig = merge(commonConfig, {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public/assets"),
     clean: true,
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+    compress: true,
+    port: 9000,
   },
 });
 
